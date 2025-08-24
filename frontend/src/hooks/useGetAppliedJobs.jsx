@@ -18,7 +18,7 @@ const useGetAppliedJobs = () => {
             } catch (error) {
                 console.log(error);
             }
-        }
+        }  
         fetchAppliedJobs();
     },[])
 };

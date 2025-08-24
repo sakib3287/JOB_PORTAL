@@ -8,7 +8,7 @@ export const postJob = async (req, res) => {
 
         if (!title || !description || !requirements || !salary || !location || !jobType || !experience || !position || !companyId) {
             return res.status(400).json({
-                message: "Somethin is missing.",
+                message: "Something is missing.",
                 success: false
             })
         };
@@ -39,7 +39,7 @@ export const getAllJobs = async (req, res) => {
         const keyword = req.query.keyword || "";
         const query = {
             $or: [
-                { title: { $regex: keyword, $options: "i" } },
+                { title: { $regex: keyword, $options: "i" } }, // case insensitive search //i means case insensitive
                 { description: { $regex: keyword, $options: "i" } },
             ]
         };
@@ -81,7 +81,7 @@ export const getJobById = async (req, res) => {
 // admin kitne job create kra hai abhi tk
 export const getAdminJobs = async (req, res) => {
     try {
-        const adminId = req.id;
+        const adminId = req.id; // Assuming req.id contains the admin's user ID
         const jobs = await Job.find({ created_by: adminId }).populate({
             path:'company',
             createdAt:-1

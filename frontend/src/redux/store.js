@@ -40,4 +40,10 @@ const store = configureStore({
             },
         }),
 });
+
+// const store=configureStore({
+//     reducer:{
+//         auth:authSlice,
+//     }
+// });
 export default store;

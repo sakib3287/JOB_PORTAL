@@ -34,6 +34,7 @@ const Signup = () => {
     }
     const submitHandler = async (e) => {
         e.preventDefault();
+        // console.log(input);
         const formData = new FormData();    //formdata object
         formData.append("fullname", input.fullname);
         formData.append("email", input.email);
@@ -57,7 +58,7 @@ const Signup = () => {
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.message);
-        } finally{
+         } finally{
             dispatch(setLoading(false));
         }
     }

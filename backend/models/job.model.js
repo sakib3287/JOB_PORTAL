@@ -37,12 +37,12 @@ const jobSchema = new mongoose.Schema({
         ref: 'Company',
         required: true
     },
-    created_by: {
+    created_by: { // User who created the job posting
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-    applications: [
+    applications: [ // List of applications for the job
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Application',

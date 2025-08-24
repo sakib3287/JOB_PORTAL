@@ -1,13 +1,13 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken"; // jsonwebtoken for token generation
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
 
 export const register = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, password, role } = req.body;
-         
+         console.log(fullname, email, phoneNumber, password, role);
         if (!fullname || !email || !phoneNumber || !password || !role) {
             return res.status(400).json({
                 message: "Something is missing",
@@ -79,7 +79,7 @@ export const login = async (req, res) => {
         };
 
         const tokenData = {
-            userId: user._id
+            userId: user._id // userId ko token m store krenge
         }
         const token = await jwt.sign(tokenData, process.env.SECRET_KEY, { expiresIn: '1d' });
 
@@ -102,7 +102,7 @@ export const login = async (req, res) => {
     }
 }
 export const logout = async (req, res) => {
-    try {
+    try {  // token ko empty bna dunga and it will expire instantly 
         return res.status(200).cookie("token", "", { maxAge: 0 }).json({
             message: "Logged out successfully.",
             success: true
@@ -116,7 +116,7 @@ export const updateProfile = async (req, res) => {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
         
         const file = req.file;
-        // cloudinary ayega idhar
+        // // cloudinary ayega idhar
         const fileUri = getDataUri(file);
         const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
@@ -124,7 +124,7 @@ export const updateProfile = async (req, res) => {
 
         let skillsArray;
         if(skills){
-            skillsArray = skills.split(",");
+            skillsArray = skills.split(","); // convert string to array
         }
         const userId = req.id; // middleware authentication
         let user = await User.findById(userId);
