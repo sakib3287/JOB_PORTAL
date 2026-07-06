@@ -17,7 +17,14 @@ export const register = async (req, res) => {
         const file = req.file;
         console.log(file);
         const fileUri = getDataUri(file);
-        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+        // const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+        try {
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+    console.log(cloudResponse);
+} catch (err) {
+    console.log("Cloudinary Error:", err);
+    console.log("Error object:", err.error);
+}
 
         const user = await User.findOne({ email });
         if (user) {
